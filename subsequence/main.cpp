@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <fstream>
 
 using namespace std;
 
@@ -51,13 +52,18 @@ int findMinSubsequenceLength(const vector<int>& sequence) {
 
 
 int main() {
+    ifstream input("data_prog_contest_problem_2.txt");
+    if (!input.is_open()) {
+        cout << "File opening error" << endl;
+        return 1;
+    }
 
     int n;
-    cin >> n;
+    input >> n;
 
     vector<int> sequence(n);
     for (int i = 0; i < n; i++) {
-        cin >> sequence[i];
+        input >> sequence[i];
     }
     
     if (!containsAllLetters(sequence)) {
@@ -66,7 +72,7 @@ int main() {
     }
     
     int result = findMinSubsequenceLength(sequence);
-    cout << result << endl;
+    cout << "The length of the minimum subsequence: " << result << endl;
     
     return 0;
 }
