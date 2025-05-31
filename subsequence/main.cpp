@@ -5,22 +5,6 @@
 
 using namespace std;
 
-bool containsAllLetters(const vector<int>& sequence) {
-    vector<bool> hasNumber(27, false);
-    for (int num : sequence) {
-        if (num >= 1 && num <= 26) {
-            hasNumber[num] = true;
-        }
-    }
-    
-    for (int i = 1; i <= 26; i++) {
-        if (!hasNumber[i]) {
-            return false;
-        }
-    }
-    return true;
-}
-
 int findMinSubsequenceLength(const vector<int>& sequence) {
     int n = sequence.size();
     int minLength = n;
@@ -47,9 +31,8 @@ int findMinSubsequenceLength(const vector<int>& sequence) {
         }
     }
     
-    return minLength;
+    return uniqueCount == 26 ? minLength : -1;
 }
-
 
 int main() {
     ifstream input("data_prog_contest_problem_2.txt");
@@ -66,13 +49,12 @@ int main() {
         input >> sequence[i];
     }
     
-    if (!containsAllLetters(sequence)) {
-        cout << "NONE" << endl;
-        return 0;
-    }
-    
     int result = findMinSubsequenceLength(sequence);
-    cout << "The length of the minimum subsequence: " << result << endl;
+    if (result == -1) {
+        cout << "NONE" << endl;
+    } else {
+        cout << "The length of the minimum subsequence: " << result << endl;
+    }
     
     return 0;
 }
